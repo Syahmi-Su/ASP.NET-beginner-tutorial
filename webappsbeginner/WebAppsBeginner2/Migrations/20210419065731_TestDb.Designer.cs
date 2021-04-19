@@ -9,8 +9,8 @@ using WebAppsBeginner2.Data;
 namespace WebAppsBeginner2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210418075328_addLenderAndItemNameColumns")]
-    partial class addLenderAndItemNameColumns
+    [Migration("20210419065731_TestDb")]
+    partial class TestDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,24 @@ namespace WebAppsBeginner2.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebAppsBeginner2.Models.Expense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExpenseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Expenses");
+                });
 
             modelBuilder.Entity("WebAppsBeginner2.Models.Item", b =>
                 {

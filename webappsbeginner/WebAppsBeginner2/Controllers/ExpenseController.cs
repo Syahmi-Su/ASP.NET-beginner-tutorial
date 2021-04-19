@@ -10,34 +10,72 @@ namespace WebAppsBeginner2.Controllers
 {
     public class ExpenseController : Controller
     {
-        private readonly ApplicationDBContext _db;
+            private readonly ApplicationDBContext _db;
 
-        public ExpenseController(ApplicationDBContext db)
+            public ExpenseController(ApplicationDBContext db)
+            {
+                _db = db;
+            }
+            public IActionResult Index()
+            {
+                IEnumerable<Expense> objList = _db.Expenses;
+                return View(objList);
+            }
+
+            //GET-Create
+            public IActionResult Create()
+            {
+                return View();
+            }
+
+            //POST-Create
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public IActionResult Create(Expense obj)
+            {
+                if(ModelState.IsValid)
+                {
+                    _db.Expenses.Add(obj);
+                    _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+                
+            }
+
+        //POST-Delete
+        public IActionResult DeletePost(int? id)
         {
-            _db = db;
-        }
-        public IActionResult Index()
-        {
-            //numerable<Expense> objList = _db.Expenses;
-            //return View(objList);
-            return View();
+            if (id == null || id==0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Expenses.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
 
         }
 
-        //GET-Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        //POST-Create
+        //POST-Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Expense obj)
+        public IActionResult Delete(int id)
         {
-            _db.Expenses.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            var obj = _db.Expenses.Find(id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+                _db.Expenses.Remove(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+
         }
+
     }
 }

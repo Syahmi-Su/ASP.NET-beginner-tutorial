@@ -9,8 +9,8 @@ using WebAppsBeginner2.Data;
 namespace WebAppsBeginner2.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210418064219_addItemToDatabase")]
-    partial class addItemToDatabase
+    [Migration("20210419065339_1db")]
+    partial class _1db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,24 @@ namespace WebAppsBeginner2.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebAppsBeginner2.Models.Expense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExpenseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Expenses");
+                });
+
             modelBuilder.Entity("WebAppsBeginner2.Models.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -28,6 +46,12 @@ namespace WebAppsBeginner2.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Borrower")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lender")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
