@@ -1,0 +1,51 @@
+﻿@model WebECartDemo.ViewModel.ItemViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    <div class="col-md-4">
+        <div class="form-group">
+            Category :
+            @Html.DropDownList(expression: model => model.CategoryId, new SelectList(Model.CategorySelectListItem, dataValueField: "Value", dataTextField: "Text"),
+                htmlAttributes: new {@class = "form-control" })
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            Item Code :
+            @Html.TextBoxFor(expression: model => model.ItemCode, htmlAttributes: new { @class = "Form-control" })
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            Item Name :
+            @Html.TextBoxFor(expression: model => model.ItemName, htmlAttributes: new { @class = "Form-control" })
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            Description :
+            @Html.TextBoxFor(expression: model => model.Description, htmlAttributes: new { @class = "Form-control" })
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            Item Price :
+            @Html.TextBoxFor(expression: model => model.ItemPrice, htmlAttributes: new { @class = "Form-control" })
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            Image Path :
+            @Html.TextBoxFor(expression: model => model.ImagePath, htmlAttributes: new { type = "file",  @class = "Form-control" })
+        </div>
+    </div>
+</div>
