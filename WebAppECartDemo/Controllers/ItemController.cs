@@ -35,10 +35,19 @@ namespace WebAppECartDemo.Controllers
         {
             string NewImage = Guid.NewGuid() + Path.GetExtension(objItemViewModel.ImagePath.FileName);
             objItemViewModel.ImagePath.SaveAs(Server.MapPath("~/Images/" + NewImage));
-            
 
+            Item objItem = new Item();
+            objItem.ImagePath = "~/Image/" + NewImage;
+            objItem.CategoryId = objItemViewModel.CategoryId;
+            objItem.Description = objItemViewModel.Description;
+            objItem.ItemCode = objItemViewModel.ItemCode;
+            objItem.ItemId = Guid.NewGuid();
+            objItem.ItemName = objItemViewModel.ItemName;
+            objItem.ItemPrice = objItemViewModel.ItemPrice;
+            objECartDbEntities.Items.Add(objItem);
+            objECartDbEntities.SaveChanges();
 
-            return Json("HHHH", JsonRequestBehavior.AllowGet);
+            return Json(new { Sucess = true, Message = "Item is added Successfully" }, "HHHH", JsonRequestBehavior.AllowGet);
         }
     }
 }
