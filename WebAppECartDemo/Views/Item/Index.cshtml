@@ -25,7 +25,7 @@
 
     function SaveItem() {
         var fomrData = new FormData;
-        FormData.append("CategoryId", $("#CategoryId").val());
+        FormData.append("CategoryId", $("#CategoryId").val(1));
         FormData.append("ItemCode", $("#ItemCode").val());
         FormData.append("ItemName", $("#ItemName").val());
         FormData.append("Description", $("#Description").val());
@@ -42,8 +42,12 @@
             url: '/Item/Index',
             data: FormData,
             success: function (data) {
-                alert(data);
-                ResetItem();
+                if (data.success)
+                {
+                    alert(data.Message);
+                    ResetItem();
+                }
+
             },
             error: function () {
                 alert("There is some problem to add Item.");
