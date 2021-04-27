@@ -4,6 +4,30 @@
 }
 
 <h2>Index</h2>
+<script type="text/javascript">
+    function AddToCart(item) {
+        var itemId = $(item).attr("itemid");
+        var formData = new FormData();
+        FormData.append("ItemdId", itemId);
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            url: '/Shopping/Index',
+            success: function (data) {
+                if (data.success) {
+                    $("#cartIteam").text("Cart(" + data.Counter + ")");
+                }
+            },
+            error: function () {
+                alert("There is some problem.");
+            }
+        })
+    }
+</script>
 
 <div class="container">
     <h2 class="text-center">Product List</h2>
