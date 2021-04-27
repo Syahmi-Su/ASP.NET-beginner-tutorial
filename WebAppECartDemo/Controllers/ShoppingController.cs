@@ -78,7 +78,7 @@ namespace WebAppECartDemo.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddOrder()
+        public ActionResult AddOrder()
         {
             int OrderId = 0;
             listOfShoppingCartModels = Session["CartItem"] as List<ShoppingCartModel>;
@@ -104,7 +104,9 @@ namespace WebAppECartDemo.Controllers
 
 
             }
-            return Json("Data Successfully Added", JsonRequestBehavior.AllowGet);
+            Session["CartItem"] = null;
+            Session["CartCounter"] = null;
+            return RedirectToAction("Index");
         }
 
     }

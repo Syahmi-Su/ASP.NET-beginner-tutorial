@@ -7,13 +7,15 @@
 
 <h2>ShoppingCart</h2>
 
+@using (Html.BeginForm("AddOrder", "Shopping", FormMethod.Post))
+{
 <table class="table-condensed" style="width:100%">
     @foreach (var item in Model)
-     {
+    {
         TotalAmount += item.Total;
         <tr>
             <td>
-                <img src="@Url.Content(item.ImagePath)" height="30px" width="30px" class="img-rounded"/>
+                <img src="@Url.Content(item.ImagePath)" height="30px" width="30px" class="img-rounded" />
             </td>
             <td>
                 @item.ItemName
@@ -28,7 +30,7 @@
                 @item.Total.ToString("#,##0.00")
             </td>
         </tr>
-     }
+    }
     <tr style="border-top: 2px solid maroon">
         <td colspan="4" style="text-align: right">
             <h3>Total Amount</h3>
@@ -40,8 +42,17 @@
 
     <tr style="text-align: right">
         <td colspan="5">
-            <input type="button" value="Save" name="Save" class="btn btn-primary" />
+            <input type="submit" value="Save" name="Save" class="btn btn-primary" id="SaveOrder" />
         </td>
     </tr>
 
+    <tr style="text-align: right">
+        <td colspan="5">
+            @Html.ActionLink("Back to Shopping", "Index", "Shopping")
+        </td>
+    </tr>
+
+
 </table>
+
+}
